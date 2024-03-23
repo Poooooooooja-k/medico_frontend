@@ -1,0 +1,58 @@
+.login-page {
+    background-image: url('https://t4.ftcdn.net/jpg/06/30/07/51/360_F_630075173_2SuLAE5llYbFn0SQncParKJq26Wjt2i7.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; 
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto; /* Add this to center the container vertically */
+}
+
+.form-control {
+    width: 100%;
+    height: 40px; /* Adjust the height as needed */
+    padding: 6px 12px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-bottom: 50px;
+  
+  }
+  .btn-primary {
+    width: 110px;
+    height: 50px;;
+    font-size: 18px;
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    margin-top: 10px;
+    margin-left: 160px;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Darker shade of blue on hover */
+    border-color: #0056b3; /* Darker shade of blue on hover */
+  }
+  .icon {
+    margin-bottom: 100px; 
+  }
+  
+  .icon-img1 {
+    width: 200px; 
+    height: auto;
+    margin-left: 130px;
+  }
