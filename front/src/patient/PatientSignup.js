@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import medico_logo from '../resources/medico_logo.png';
 import { Link } from 'react-router-dom';
 
+
 const PatientSignup = () => {
   const navigate = useNavigate();
   const [firstName, setFirstname] = useState('');
@@ -17,39 +18,60 @@ const PatientSignup = () => {
   const [error, setError] = useState('');
   const [registrationStatus, setRegistrationStatus] = useState(null);
 
+
+
   const handleSubmit = async (e) => {
     setError('');
     e.preventDefault();
-    if (password === confirmPassword) {
        try {
          const response = await AxiosInstance.post('/patient/patientsignup/', {
            first_name: firstName,
            last_name: lastName,
-           email: email,
            age: age,
            place: place,
            phone_number: phoneNumber,
+           email: email,
            password: password,
-           role: "patient"
+           confirm_password: password
+        
          });
-         setRegistrationStatus('success');
+         setRegistrationStatus('success')
          alert('signup successful');
          navigate('/otp-verification', { state: { email: email } });
        } catch (error) {
          console.error("Error submitting signup:", error.response ? error.response.data : error);
+         console.log(error)
          setRegistrationStatus('error');
        }
-    } else {
-       setError('Passwords do not match');
-    }
+    
    };
    
   let statusMessage = null;
   if (registrationStatus === 'success') {
     statusMessage = <div>Registration successful! Please check your email to verify your account.</div>;
+    setRegistrationStatus('');
   } else if (registrationStatus === 'error') {
     statusMessage = <div>Failed to register. Please try again.</div>;
+    setRegistrationStatus('');
   }
+  
+
+  const ContinueWithGoogle = async ()=>{
+    try{
+      const response= await AxiosInstance.get(`${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?redirect_uri=http://localhost:8000`)
+      window.location.replace(response.data.authorization_url);
+    }catch (error){
+
+    }
+  }
+
+
+
+
+
+
+
+
 
   return (
     <>
@@ -75,8 +97,6 @@ const PatientSignup = () => {
                 </div>
                 {/* Form */}
                 <form className="space-y-6" onSubmit={handleSubmit}>
-                  <p className="mb-4">Please register an account</p>
-               
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <input
                       type="text"
@@ -158,20 +178,17 @@ const PatientSignup = () => {
                   </div>
                   {/* Register button */}
                   <div className="text-center">
-      <p className="mb-0">Have an account?</p>
-      <Link to="/patientlogin">
-        <button
-          type="button"
-          className="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
-        >
-          Login
-        </button>
-      </Link>
+                  <p className="mb-0">Have an account?<Link to="/patientlogin" style={{ color: 'blue' }}>login
+                    </Link></p>
     </div>
+    <div class="px-6 sm:px-0 max-w-sm ml-9">
+    <button type="button" onClick={ContinueWithGoogle} class="text-white w-full  bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between mr-2 mb-2"><svg class="mr-2 -ml-1 w-4 h-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>Continue with Google<div></div></button>
+   </div>
                   {statusMessage}
                 </form>
               </div>
             </div>
+            
             {/* Right column container with background and description */}
             <div
               className="hidden lg:block w-6/12 bg-gradient-to-r from-orange-500 via-red-500 to-purple-500 rounded-r-lg"

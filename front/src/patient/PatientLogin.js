@@ -1,13 +1,41 @@
 import React, { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { AxiosInstance } from '../components/AxiosInstance';
+import { Link, useNavigate } from 'react-router-dom';
+import { userLogin } from '../redux/slice/AuthSlice';
+import { UseDispatch,useDispatch,useSelector } from 'react-redux';
+
 
 const PatientLogin = () => {
   const [email,setEmail]=useState('')
   const [password,setPassword]=useState('')
-
-  const handleSubmit= async(e)=>{
-
-  }
+  const navigate=useNavigate()
+    
+  const dispatch=useDispatch()
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
+    try {
+      const response = await AxiosInstance.post('patient/patientlogin/', {
+        email: email,
+        password: password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      if (response && response.data) {
+        console.log(response.data);
+        console.log(response.data.jwt);
+        localStorage.setItem('token',response.data.jwt);
+        dispatch(userLogin())
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
  return (
     <>
       <div className="py-16">
@@ -18,17 +46,17 @@ const PatientLogin = () => {
           <div className="w-full p-8 lg:w-1/2">
             
             <p className="text-xl text-gray-600 text-center">Welcome back!</p>
-            <form onSubmit={}>
+            <form onSubmit={handleSubmit}>
               <div className="mt-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
-                <input className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
+                <input className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
               </div>
               <div className="mt-4">
                 <div className="flex justify-between">
                  <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
                  <a href="#" className="text-xs text-gray-500">Forget Password?</a>
                 </div>
-                <input className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="password" />
+                <input className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
               </div>
               <div className="mt-8">
                 <button type='submit' className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">Login</button>
@@ -36,7 +64,7 @@ const PatientLogin = () => {
               </form>
               <div className="mt-4 flex items-center justify-between">
                 <span className="border-b w-1/5 md:w-1/4"></span>
-                <a href="#" className="text-xs text-gray-500 uppercase">or sign up</a>
+                <Link to='/patientsignup'>Signup</Link>
                 <span className="border-b w-1/5 md:w-1/4"></span>
               </div>
               

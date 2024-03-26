@@ -21,7 +21,7 @@ const OtpVerification = () => {
       if (response.status === 200) {
       
         alert('OTP verification successful');
-        navigate('/next-page');
+        navigate('/');
       } else {
         setError('Invalid OTP');
       }
