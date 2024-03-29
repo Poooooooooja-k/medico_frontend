@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { AxiosInstance } from "../components/AxiosInstance";
 import { useNavigate } from 'react-router-dom';
@@ -15,9 +16,6 @@ const DoctorSignup = () => {
   const [specialisation,setSpecialisation]=useState([])
   const [selectedSpecialization, setSelectedSpecialization] = useState('');
   const [newSpecialization, setNewSpecialization] = useState('');
-
-
-
   const [experienceCertificate,setExperienceCertificate]=useState('')
   const [mbbsCertificate,setmbbsCertificate]=useState('')
   const [password, setPassword] = useState('');
@@ -41,17 +39,22 @@ const DoctorSignup = () => {
     formData.append('experience_certificate', experienceCertificate);
     formData.append('mbbs_certificate', mbbsCertificate);
 
-    if (selectedSpecialization === 'other' && newSpecialization) {
-        try {
-          await AxiosInstance.post('adminn/addspecialisation/', { name: newSpecialization });
-          // Assuming the new specialization is returned with an ID
-          setSelectedSpecialization(/* the new specialization ID */);
-        } catch (error) {
-          console.error("Error adding new specialization:", error);
-          return;
-        }
-     }
-   
+    // if (selectedSpecialization === 'other' && newSpecialization) {
+    //     try {
+    //       await AxiosInstance.post('adminn/addspecialisation/', { name: newSpecialization });
+    //       // Assuming the new specialization is returned with an ID
+    //       setSelectedSpecialization(/* the new specialization ID */);
+    //     } catch (error) {
+    //       console.error("Error adding new specialization:", error);
+    //       return;
+    //     }
+    //  }
+     if (selectedSpecialization === 'other' && newSpecialization) {
+      formData.append('new_specialisation', newSpecialization);
+    }
+    formData.append('specialisation', selectedSpecialization);
+
+    
     try {
        const response = await AxiosInstance.post('doctor/docsignup/', formData, {
          headers: {
