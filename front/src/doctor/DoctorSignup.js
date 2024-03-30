@@ -13,9 +13,7 @@ const DoctorSignup = () => {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [experience,setExperience]=useState('')
-  const [specialisation,setSpecialisation]=useState([])
-  const [selectedSpecialization, setSelectedSpecialization] = useState('');
-  const [newSpecialization, setNewSpecialization] = useState('');
+  const [specialisation,setSpecialisation]=useState('')
   const [experienceCertificate,setExperienceCertificate]=useState('')
   const [mbbsCertificate,setmbbsCertificate]=useState('')
   const [password, setPassword] = useState('');
@@ -38,23 +36,8 @@ const DoctorSignup = () => {
     formData.append('confirm_password', confirmPassword);
     formData.append('experience_certificate', experienceCertificate);
     formData.append('mbbs_certificate', mbbsCertificate);
+    formData.append('specialisation', specialisation);
 
-    // if (selectedSpecialization === 'other' && newSpecialization) {
-    //     try {
-    //       await AxiosInstance.post('adminn/addspecialisation/', { name: newSpecialization });
-    //       // Assuming the new specialization is returned with an ID
-    //       setSelectedSpecialization(/* the new specialization ID */);
-    //     } catch (error) {
-    //       console.error("Error adding new specialization:", error);
-    //       return;
-    //     }
-    //  }
-     if (selectedSpecialization === 'other' && newSpecialization) {
-      formData.append('new_specialisation', newSpecialization);
-    }
-    formData.append('specialisation', selectedSpecialization);
-
-    
     try {
        const response = await AxiosInstance.post('doctor/docsignup/', formData, {
          headers: {
@@ -153,43 +136,20 @@ const DoctorSignup = () => {
                     />
                     <input
                       type="text"
+                      value={specialisation}
+                      className="form-control"
+                      placeholder="Enter your specialization"
+                      onChange={(e) => setSpecialisation(e.target.value)}
+                      required
+                    />
+                    <input
+                      type="text"
                       value={experience}
                       className="form-control"
                       placeholder="years of experience"
                       onChange={(e) => setExperience(e.target.value)}
                       required
                     />
-
-                    {/* specialisation dropdown */}
-                    <label>
-                        Select Specialization:
-                        <select
-                            value={selectedSpecialization}
-                            onChange={(e) => setSelectedSpecialization(e.target.value)}
-                            className="form-control"
-                            required
-                          
-                        >
-                            <option value="">Choose your specialisation</option>
-                            {specialisation.map((specialization, index) => (
-                                <option key={index} value={specialization.id}>{specialization.name}</option>
-                            ))}
-                            <option value="other">Other</option>
-                        </select>
-                    </label>
-                    {selectedSpecialization === 'other' && (
-                        <input
-                            type="text"
-                            value={newSpecialization}
-                            onChange={(e) => setNewSpecialization(e.target.value)}
-                            placeholder=" Enter new specialization "
-                            className="form-control" 
-                            required
-                        />
-                    )}
-
-                    {/* end of specialisation */}
-
 
                    <label htmlFor="mbbsCertificate">MBBS Certificate</label>
                         <input
