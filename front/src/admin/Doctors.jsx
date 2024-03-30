@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { AxiosInstance } from '../components/AxiosInstance';
 import AdminSideBar from './AdminSideBar';
-import { Link } from 'react-router-dom';
 import { BaseUrl } from '../components/BaseUrl';
 
 const Doctors = () => {
   const [doctors, setDoctors] = useState([]); 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(1); // Set the number of items per page
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const nextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, Math.ceil(doctors.length / itemsPerPage)));
+  };
+
+  const prevPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
@@ -19,11 +28,64 @@ const Doctors = () => {
     fetchDoctors();  
   }, []);
 
+  const ApproveDoc = async (email) => {
+    try {
+      const response = await AxiosInstance.post('adminn/doctorverify/', { email });
+      console.log('Doctor approved successfully:', response.data);
+      alert('Doctor account approved succesfullyy!!')
+      return response.data; 
+    } catch (error) {
+      console.error('Error approving doctor:', error);  
+    }
+  };
+
+  const RejectDoc = async (email) => {
+    console.log('Email:', email); // Add this line to log the email
+    try {
+      const response = await AxiosInstance.post('adminn/rejectdoctor/', { email });
+      console.log('Doctor rejected successfully:', response.data);
+      console.log(response,"----------------")
+      alert('Doctor rejected successfully');
+      return response.data;
+  
+    } catch (error) {
+      console.error('Error rejecting doctor:', error);
+      
+    }
+  };
+  
+  
+    
+  // Logic to get current items based on pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentDoctors = doctors.slice(indexOfFirstItem, indexOfLastItem);
+
+  
+
+
   return (
     <div className="flex">
       <AdminSideBar />
       <div className="flex flex-col overflow-x-auto">
         <h1 className="text-center font-bold text-red-500 mt-4">Doctors</h1>
+        <div className="flex justify-center my-4">
+          <button onClick={prevPage} disabled={currentPage === 1} className="mx-2 px-4 py-2 border rounded">
+            Previous
+          </button>
+          <ul className="pagination">
+            {Array.from({ length: Math.ceil(doctors.length / itemsPerPage) }, (_, i) => (
+              <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
+                <button onClick={() => paginate(i + 1)} className="page-link">
+                  {i + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+          <button onClick={nextPage} disabled={currentPage === Math.ceil(doctors.length / itemsPerPage)} className="mx-2 px-4 py-2 border rounded">
+            Next
+          </button>
+        </div>
         <div className="sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div className="overflow-x-auto">
@@ -40,33 +102,42 @@ const Doctors = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {doctors.map((doctor, index) => (
-                    <tr key={index} className="border-b dark:border-neutral-500">
-                      <td className="whitespace-nowrap px-12 py-12 font-medium">{index + 1}</td>
-                      <td className="whitespace-nowrap px-12 py-12">{doctor.first_name}</td>
-                      <td className="whitespace-nowrap px-12 py-12">{doctor.last_name}</td>
-                      <td className="whitespace-nowrap px-12 py-12">
-                        {doctor.specialisation && doctor.specialisation.map((spec, idx) => (
-                          <span key={idx}>{spec.name}</span>
-                        ))}
-                      </td>
-                      <td className="whitespace-nowrap px-12 py-12">{doctor.email}</td>
-                      <td className="whitespace-nowrap px-12 py-12">{doctor.phone_number}</td>
-                      <td className="whitespace-nowrap px-12 py-12">
-                    {doctor.doc_image && doctor.doc_image.map((documents, idx) => (
-                      <div key={idx}>
-                        {console.log(documents.experience_certificate, 'image')}
-                        <img src={BaseUrl + documents.experience_certificate} alt="Experience Certificate" /><br />
-                        <img src={documents.mbbs_certificate} alt="MBBS Certificate" />
-                      </div>
+                {currentDoctors.map((doctor, index) => (
+                    // Table body rows
+                    // {currentDoctors.map((doctor, index) => (
+                      <tr key={index} className="border-b dark:border-neutral-500">
+                        <td className="whitespace-nowrap px-12 py-12 font-medium">{index + 1}</td>
+                        <td className="whitespace-nowrap px-12 py-12">{doctor.first_name}</td>
+                        <td className="whitespace-nowrap px-12 py-12">{doctor.last_name}</td>
+                        <td className="whitespace-nowrap px-12 py-12">
+                          {doctor.specialisation && doctor.specialisation.map((spec, idx) => (
+                            <span key={idx}>{spec.name}</span>
+                          ))}
+                        </td>
+                        <td className="whitespace-nowrap px-12 py-12">{doctor.email}</td>
+                        <td className="whitespace-nowrap px-12 py-12">{doctor.phone_number}</td>
+                        <td className="whitespace-nowrap px-12 py-12">
+                      {doctor.doc_image && doctor.doc_image.map((documents, idx) => (
+                        <div key={idx}>
+                          {console.log(documents.experience_certificate, 'image')}
+                          <img src={BaseUrl + documents.experience_certificate} alt="Experience Certificate" className="h-20 w-30" /><br />
+                          <img src={BaseUrl+documents.mbbs_certificate} alt="MBBS Certificate" className="h-20 w-30" />
+                          <button className="bg-green-500 text-white ml-10 md:ml-2 h-9 px-4 py-2 rounded" onClick={() => ApproveDoc(doctor.email)}>Approve</button>
+                          <button className="bg-red-500 text-white ml-10 md:ml-2 h-9 px-4 py-2 rounded" onClick={()=>RejectDoc(doctor.email)}>Reject</button>
+                        </div>
+                       
+                      ))}
+                        </td>
+                      </tr>
                     ))}
-                      </td>
-                    </tr>
-                  ))}
+                  
+                 
                 </tbody>
               </table>
+              
             </div>
           </div>
+      
         </div>
       </div>
     </div>

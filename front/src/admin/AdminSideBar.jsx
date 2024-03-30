@@ -16,7 +16,7 @@ const AdminSideBar = () => {
         </div>
         <div className="sidebar">
           <ul>
-            <li><Link to="/" className="block py-2 px-4">Dashboard</Link></li>
+            <li><Link to="/admindashboard" className="block py-2 px-4">Dashboard</Link></li>
             <li><Link to="/adminpatients" className="block py-2 px-4">Patients</Link></li>
             <li><Link to="/admindoctors" className="block py-2 px-4">Doctors</Link></li>
             <li><Link to="/adminspecializations" className="block py-2 px-4">Specializations</Link></li>
