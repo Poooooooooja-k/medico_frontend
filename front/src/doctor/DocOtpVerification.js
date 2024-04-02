@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { AxiosInstance } from "../components/AxiosInstance";
 import { useNavigate, useLocation } from 'react-router-dom';
-
+import { Toaster } from 'react-hot-toast';
 const DocOtpVerification = () => {
     const navigate = useNavigate();
     const [otp, setOtp] = useState('');
@@ -20,7 +20,7 @@ const DocOtpVerification = () => {
    
          if (response.status === 200) {
          
-           alert('OTP verification successful');
+           Toaster('OTP verification successful');
            navigate('/');
          } else {
            setError('Invalid OTP');
@@ -33,6 +33,7 @@ const DocOtpVerification = () => {
     return (
        <div className="min-h-screen bg-cover bg-center flex items-center justify-center" style={{backgroundImage: "https://thumbs.dreamstime.com/b/technology-innovation-medicine-concept-doctor-medical-network-connection-modern-virtual-screen-interfacein-hand-109191165.jpg"}}>
          <div className="bg-white p-8 rounded shadow-md w-96">
+          <Toaster/>
            <h2 className="text-2xl mb-4">Enter Your OTP</h2>
            <form onSubmit={handleSubmit}>
              <div className="mb-4">

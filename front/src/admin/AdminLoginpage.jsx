@@ -1,14 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './AdminLoginpage.css';
 import { useNavigate } from 'react-router-dom'
 import { AxiosInstance } from '../components/AxiosInstance'
 import medico from '../resources/medico_logo.png';
+import { userLogin } from '../redux/slice/AuthSlice';
+import { UseDispatch, useDispatch, useSelector } from 'react-redux';
+
+
 
 const AdminLoginpage = () => {
     const [username,setUsername]=useState('')
     const [password,setPassword]=useState('')
+    const user=useSelector((state)=>state.auth.isLogin)
     const navigate=useNavigate()
+    const dispatch=useDispatch()
   
+    useEffect(()=>{
+      if (user){
+        navigate('/admin/admindashboard/')
+      }
+    })
 
     const handleSubmit= async (e)=>{
         e.preventDefault();
@@ -17,7 +28,8 @@ const AdminLoginpage = () => {
           password:password
         })
       .then(response => {
-        navigate('/admindashboard');
+        dispatch(userLogin());
+        navigate('/admin/admindashboard');
         console.log('Success:', response.data);
       })
       .catch(error => {

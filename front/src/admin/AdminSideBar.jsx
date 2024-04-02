@@ -1,11 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import medico from '../resources/medico_logo.png';
+import { userLogout } from '../redux/slice/AuthSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { AxiosInstance } from '../components/AxiosInstance';
 
 const AdminSideBar = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleLogout = () => {
-    // Implement your logout logic here
-    console.log('Logout clicked');
+    AxiosInstance.post('adminn/adminlogout/')
+      .then(response => {
+        dispatch(userLogout());
+        navigate('/adminlogin');
+      })
+      .catch(error => {
+        console.error('Logout failed:', error);
+      });
   };
 
   return (
@@ -21,13 +34,13 @@ const AdminSideBar = () => {
             <li><Link to="/admindoctors" className="block py-2 px-4">Doctors</Link></li>
             <li><Link to="/adminspecializations" className="block py-2 px-4">Specializations</Link></li>
             <li><Link to="/appointments" className="block py-2 px-4">Appointments</Link></li>
-            <li><Link to="/blog" className="block py-2 px-4">Blog</Link></li>
+            <li><Link to="/addblogpost" className="block py-2 px-4">Blog</Link></li>
             <li><Link to="/feedback" className="block py-2 px-4">Feedback</Link></li>
             <li><Link to="/wallet" className="block py-2 px-4">Wallet</Link></li>
+            <li><button className='h-45 w-45 rounded-lg bg-red-700 ml-5 mt-3' onClick={handleLogout}>logout</button></li>
           </ul>
         </div>
       </div>
-      
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { AxiosInstance } from "../components/AxiosInstance";
 import { useNavigate } from 'react-router-dom';
 import medico_logo from '../resources/medico_logo.png';
 import { Link } from 'react-router-dom';
-
+import { Toaster } from 'react-hot-toast';
 
 const PatientSignup = () => {
   const navigate = useNavigate();
@@ -23,6 +23,40 @@ const PatientSignup = () => {
   const handleSubmit = async (e) => {
     setError('');
     e.preventDefault();
+
+
+    // Password validation regex pattern
+    const passwordRegex = /^.{6,}$/;
+
+    // Validate all fields
+    if (!firstName || !lastName || !email || !phoneNumber || !age || !place || !password || !confirmPassword) {
+      setError('All fields are required');
+      Toaster('All fields are required');
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Invalid email format');
+      Toaster('Invalid email format');
+      return;
+    }
+
+    // Validate password length
+    if (!passwordRegex.test(password)) {
+      setError('Password must be at least 6 characters long');
+      Toaster('Password must be at least 6 characters long');
+      return;
+    }
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      Toaster('Passwords do not match');
+      return;
+    }
+
        try {
          const response = await AxiosInstance.post('/patient/patientsignup/', {
            first_name: firstName,
@@ -66,16 +100,10 @@ const PatientSignup = () => {
   }
 
 
-
-
-
-
-
-
-
   return (
     <>
   <section className="h-full bg-neutral-200 light:bg-neutral-700">
+    <Toaster/>
   <div className="container h-full p-10">
     <div className="flex h-full items-center justify-center">
       <div className="w-full lg:w-10/12">

@@ -8,11 +8,19 @@ import { Provider } from 'react-redux';
 import appStore from './redux/Store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  integrity="sha512-v7WvnpOvcjO0wGxv5qW4pDLdLW0Usihf4z4j7/Vv5OesgJjVgIrzDSBtAARqLdLpmh1uH4Q1uzc+F/BbF+OSQA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+
 root.render(
   <React.StrictMode>
   <BrowserRouter>
   <Provider store={appStore}>
-  <App />
+  <App /> 
   </Provider>
     </BrowserRouter>
   </React.StrictMode>

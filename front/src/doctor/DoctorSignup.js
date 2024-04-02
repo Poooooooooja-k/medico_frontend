@@ -26,6 +26,40 @@ const DoctorSignup = () => {
   const handleSubmit = async (e) => {
     setError('');
     e.preventDefault();
+
+    
+    // Password validation regex pattern
+    const passwordRegex = /^.{6,}$/;
+
+    // Validate all fields
+    if (!firstName || !lastName || !email || !phoneNumber || !experience || !specialisation || !password || !confirmPassword) {
+      setError('All fields are required');
+   
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Invalid email format');
+ 
+      return;
+    }
+
+    // Validate password length
+    if (!passwordRegex.test(password)) {
+      setError('Password must be at least 6 characters long');
+  
+      return;
+    }
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+   
+      return;
+    }
+
     const formData = new FormData();
     formData.append('first_name', firstName);
     formData.append('last_name', lastName);
@@ -77,6 +111,8 @@ const DoctorSignup = () => {
  }, []);
 
 
+
+
   return (
     <>
   <section className="h-full bg-neutral-200 light:bg-neutral-700">
@@ -99,6 +135,10 @@ const DoctorSignup = () => {
                     We are The Medico Team
                   </h4>
                 </div>
+                {/* Error message */}
+                  {error && (
+                    <div className="text-red-500 text-center mt-2">{error}</div>
+                  )}
                 {/* Form */}
                 <form className="space-y-1" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-1 gap-1">
