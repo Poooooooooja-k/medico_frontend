@@ -62,7 +62,7 @@ const DoctorLogin = () => {
           console.log(response.data.jwt);
           localStorage.setItem('token', response.data.jwt);
           dispatch(userLogin());
-          navigate('/');
+          navigate('doctor/docDashboard');
         }
       } catch (error) {
         console.error('Error:', error);

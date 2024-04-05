@@ -21,7 +21,7 @@ const DoctorSignup = () => {
   const [error, setError] = useState('');
   const [registrationStatus, setRegistrationStatus] = useState(null);
 
-
+  console.log(specialisation,"-------sec--------------")
 
   const handleSubmit = async (e) => {
     setError('');
@@ -71,7 +71,7 @@ const DoctorSignup = () => {
     formData.append('experience_certificate', experienceCertificate);
     formData.append('mbbs_certificate', mbbsCertificate);
     formData.append('specialisation', specialisation);
-
+    
     try {
        const response = await AxiosInstance.post('doctor/docsignup/', formData, {
          headers: {
@@ -98,17 +98,17 @@ const DoctorSignup = () => {
     setRegistrationStatus('');
   }
 
- useEffect(() => {
-    const fetchSpecializations = async () => {
-      try {
-        const response = await AxiosInstance.get('adminn/specialisations/');
-        setSpecialisation(response.data);
-      } catch (error) {
-        console.error("Error fetching specializations:", error);
-      }
-    };
-    fetchSpecializations();
- }, []);
+//  useEffect(() => {
+//     const fetchSpecializations = async () => {
+//       try {
+//         const response = await AxiosInstance.get('adminn/specialisations/');
+//         setSpecialisation(response.data);
+//       } catch (error) {
+//         console.error("Error fetching specializations:", error);
+//       }
+//     };
+//     fetchSpecializations();
+//  }, []);
 
 
 

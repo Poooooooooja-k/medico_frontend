@@ -3,15 +3,15 @@ import './AdminLoginpage.css';
 import { useNavigate } from 'react-router-dom'
 import { AxiosInstance } from '../components/AxiosInstance'
 import medico from '../resources/medico_logo.png';
-import { userLogin } from '../redux/slice/AuthSlice';
-import { UseDispatch, useDispatch, useSelector } from 'react-redux';
+import { AdminLogin } from '../redux/slice/AdminSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 const AdminLoginpage = () => {
     const [username,setUsername]=useState('')
     const [password,setPassword]=useState('')
-    const user=useSelector((state)=>state.auth.isLogin)
+    const user=useSelector((state)=>state.admin_auth.AdminIsLogin)
     const navigate=useNavigate()
     const dispatch=useDispatch()
   
@@ -28,7 +28,8 @@ const AdminLoginpage = () => {
           password:password
         })
       .then(response => {
-        dispatch(userLogin());
+        dispatch(AdminLogin());
+        localStorage.setItem('admintoken', response.data.jwt);
         navigate('/admin/admindashboard');
         console.log('Success:', response.data);
       })

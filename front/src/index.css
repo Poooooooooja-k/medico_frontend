@@ -14,3 +14,12 @@ code {
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@keyframes slide {
+  0% {
+    transform: translatex(50%);
+  }
+  /* 100% {
+    transform: translateX(-100%);
+  } */
+}

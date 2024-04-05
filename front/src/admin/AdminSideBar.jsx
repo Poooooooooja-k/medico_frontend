@@ -25,18 +25,18 @@ const AdminSideBar = () => {
     <div className="bg-gray-900 text-white h-screen w-64">
       <div className="container mx-auto py-8 px-4">
         <div className="flex items-center justify-center mb-8">
-          <img className="w-16 h-16" src={medico} alt="Icon" />
+          <img className="w-auto h-32" src={medico} alt="Icon" />
         </div>
         <div className="sidebar">
           <ul>
-            <li><Link to="/admindashboard" className="block py-2 px-4">Dashboard</Link></li>
-            <li><Link to="/adminpatients" className="block py-2 px-4">Patients</Link></li>
-            <li><Link to="/admindoctors" className="block py-2 px-4">Doctors</Link></li>
-            <li><Link to="/adminspecializations" className="block py-2 px-4">Specializations</Link></li>
-            <li><Link to="/appointments" className="block py-2 px-4">Appointments</Link></li>
-            <li><Link to="/addblogpost" className="block py-2 px-4">Blog</Link></li>
-            <li><Link to="/feedback" className="block py-2 px-4">Feedback</Link></li>
-            <li><Link to="/wallet" className="block py-2 px-4">Wallet</Link></li>
+            <li><Link to="/admin/admindashboard" className="block py-2 px-4">Dashboard</Link></li>
+            <li><Link to="/admin/adminpatients" className="block py-2 px-4">Patients</Link></li>
+            <li><Link to="/admin/admindoctors" className="block py-2 px-4">Doctors</Link></li>
+            <li><Link to="/admin/adminspecializations" className="block py-2 px-4">Specializations</Link></li>
+            <li><Link to="/admin/appointments" className="block py-2 px-4">Appointments</Link></li>
+            <li><Link to="/admin/addblogpost" className="block py-2 px-4">Blog</Link></li>
+            <li><Link to="/admin/feedback" className="block py-2 px-4">Feedback</Link></li>
+            <li><Link to="/admin/wallet" className="block py-2 px-4">Wallet</Link></li>
             <li><button className='h-45 w-45 rounded-lg bg-red-700 ml-5 mt-3' onClick={handleLogout}>logout</button></li>
           </ul>
         </div>

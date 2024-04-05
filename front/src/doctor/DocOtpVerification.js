@@ -1,26 +1,30 @@
 import React, { useState } from 'react'
 import { AxiosInstance } from "../components/AxiosInstance";
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
+import toast,{ Toaster } from 'react-hot-toast';
 const DocOtpVerification = () => {
     const navigate = useNavigate();
     const [otp, setOtp] = useState('');
     const [error, setError] = useState('');
     const location = useLocation();
+    const successNotification=(message)=>toast.success(message)
+    const errorNotification=(message)=>toast.error(message)
+
    
     const email = location.state?.email || '';
    
     const handleSubmit = async (e) => {
        e.preventDefault();
        try {
-         const response = await AxiosInstance.post('patient/verifyotp/', {
+         const response = await AxiosInstance.post('doctor/verifyotp/', {
            email: email,
            otp: otp,
          });
    
+         console.log(response.status, 'staus----')
          if (response.status === 200) {
          
-           Toaster('OTP verification successful');
+          successNotification('OTP verification successful');
            navigate('/');
          } else {
            setError('Invalid OTP');
