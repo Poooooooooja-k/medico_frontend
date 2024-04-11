@@ -4,7 +4,7 @@ const initialState={
     AdminIsLogin:false
 }
 
-if (localStorage.getItem('admintoken')){
+if (localStorage.getItem('token')){
     initialState.AdminIsLogin=true
 }
 
@@ -18,7 +18,7 @@ const AdminSlice=createSlice({
         },
         AdminLogout:(state)=>{
             state.AdminIsLogin=false
-            localStorage.removeItem('admintoken');
+            localStorage.removeItem('token');
             console.log("logged out successfully")
         }
     }

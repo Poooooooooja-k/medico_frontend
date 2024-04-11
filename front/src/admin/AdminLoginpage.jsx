@@ -29,7 +29,7 @@ const AdminLoginpage = () => {
         })
       .then(response => {
         dispatch(AdminLogin());
-        localStorage.setItem('admintoken', response.data.jwt);
+        localStorage.setItem('token', response.data.jwt);
         navigate('/admin/admindashboard');
         console.log('Success:', response.data);
       })

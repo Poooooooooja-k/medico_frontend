@@ -1,25 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import medico from '../resources/medico_logo.png';
-import { userLogout } from '../redux/slice/AuthSlice';
+import { AdminLogout } from '../redux/slice/AdminSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { AxiosInstance } from '../components/AxiosInstance';
+
 
 const AdminSideBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    AxiosInstance.post('adminn/adminlogout/')
-      .then(response => {
-        dispatch(userLogout());
-        navigate('/adminlogin');
-      })
-      .catch(error => {
-        console.error('Logout failed:', error);
-      });
-  };
+        dispatch(AdminLogout());
+        navigate('/admin/adminlogin');
+  }
 
   return (
     <div className="bg-gray-900 text-white h-screen w-64">

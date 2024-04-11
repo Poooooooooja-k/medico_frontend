@@ -6,8 +6,9 @@ const AdminProtectedRouter = ({element:Element}) => {
     const user=useSelector((state)=>state.admin_auth.AdminIsLogin)
     console.log(user,"---user-------")
     if (!user){
-        return <Navigate to='/adminlogin'/>
+        return <Navigate to='/admin/adminlogin'/>
     }
+    
     return <Element/>
   
 }

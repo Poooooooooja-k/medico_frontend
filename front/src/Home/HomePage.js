@@ -5,8 +5,9 @@ function HomePage(){
 
   return (
     <>
-    <HomeNavbar />
+   
     <div className='relative'>
+    <HomeNavbar />
   <img className='object-cover w-full h-auto col-span-1' src='https://st4.depositphotos.com/9999814/22690/i/450/depositphotos_226904298-stock-photo-male-doctor-using-mobile-phone.jpg' alt='banner1' />
   {/* 1st banner */}
   <div className="hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-hidden sm:flex flex-col justify-center items-center">

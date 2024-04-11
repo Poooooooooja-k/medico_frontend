@@ -80,7 +80,7 @@ const DoctorSignup = () => {
        });
        setRegistrationStatus('success');
        alert('signup successful');
-       navigate('/docotp-verification', { state: { email: email } });
+       navigate('/doctor/docotp-verification/', { state: { email: email } });
     } catch (error) {
        console.error("Error submitting signup:", error.response ? error.response.data : error);
        console.log(error);

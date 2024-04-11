@@ -41,10 +41,10 @@ const HomeNavbar = () => {
                 {newIsOpen && (
                   <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                      <Link to="/doctorlogin" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                      <Link to="/doctor/doctorlogin" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
                         Login as Doctor?
                       </Link>
-                      <Link to="/patientlogin" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                      <Link to="/patient/patientlogin" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
                         Login as Patient?
                       </Link>
                     </div>
@@ -74,10 +74,10 @@ const HomeNavbar = () => {
                 {isOpen && (
                   <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                      <Link to="/doctorsignup" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                      <Link to="doctor/doctorsignup/" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
                         Signup as Doctor?
                       </Link>
-                      <Link to="/patientsignup" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                      <Link to="patient/patientsignup/" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
                         Signup as Patient?
                       </Link>
                     </div>
@@ -90,17 +90,18 @@ const HomeNavbar = () => {
 
         {login && (
           <div className="h-32 grid grid-cols-12">
-            <div className="flex justify-start col-span-4">
+            <div className="flex justify-start col-span-1">
               <img src={medico_logo} alt="Medico Logo" className="h-40 w-auto mr-25" />
+              
             </div>
-            <div className="hidden items-center justify-around col-span-8 md:flex">
+            <div className="hidden items-center justify-around col-span-11 md:flex">
               <Link to="/homepage" className="text-black">
                 Home
               </Link>
               <Link to="/about" className="text-black">
                 About
               </Link>
-              <Link to="/doctors-appointments" className="text-black">
+              <Link to="/patient/doctorlist" className="text-black">
                 Doctors
               </Link>
               <Link to="/blog" className="text-black">
@@ -109,7 +110,7 @@ const HomeNavbar = () => {
               <Link to="/booking" className="text-black">
                 Booking
               </Link>
-              <Link to="/Profile" className="text-black">
+              <Link to="/patient/Profile/" className="text-black">
                 Profile
               </Link>
             </div>
@@ -138,7 +139,7 @@ const HomeNavbar = () => {
             <Link to="/booking" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
               Booking
             </Link>
-            <Link to="/Profile" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+            <Link to="patient/Profile/" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
               Profile
             </Link>
             </div>

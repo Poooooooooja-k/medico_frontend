@@ -73,15 +73,6 @@ const Doctors = () => {
           <button onClick={prevPage} disabled={currentPage === 1} className="mx-2 px-4 py-2 border rounded">
             Previous
           </button>
-          <ul className="pagination">
-            {Array.from({ length: Math.ceil(doctors.length / itemsPerPage) }, (_, i) => (
-              <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
-                <button onClick={() => paginate(i + 1)} className="page-link">
-                  {i + 1}
-                </button>
-              </li>
-            ))}
-          </ul>
           <button onClick={nextPage} disabled={currentPage === Math.ceil(doctors.length / itemsPerPage)} className="mx-2 px-4 py-2 border rounded">
             Next
           </button>

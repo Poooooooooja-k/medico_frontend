@@ -54,7 +54,8 @@ const PatientLogin = () => {
         if (response && response.data) {
           console.log(response.data);
           console.log(response.data.jwt);
-          localStorage.setItem('token', response.data.jwt);
+          localStorage.setItem('token', response.data.access_token);
+          localStorage.setItem('refreshToken', response.data.refresh);
           dispatch(userLogin());
           navigate('/');
         }
@@ -95,7 +96,7 @@ const PatientLogin = () => {
             </form>
             <div className="mt-4 flex items-center justify-between">
               <span className="border-b w-1/5 md:w-1/4"></span>
-              <Link to='/patientsignup'>Signup</Link>
+              <Link to='/patient/patientsignup'>Signup</Link>
               <span className="border-b w-1/5 md:w-1/4"></span>
             </div>
 

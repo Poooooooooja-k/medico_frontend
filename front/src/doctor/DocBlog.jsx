@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { AxiosInstance } from '../components/AxiosInstance';
-import AdminSideBar from './AdminSideBar';
 import { Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
+import DocNavbar from './DocNavbar';
+import ProfileSideBar from './ProfileSideBar';
 
-const Blogpost = () => {
+const DocBlog= () => {
   const [title, setTitle] = useState('');
   const [article, setArticle] = useState(null);
   const [video, setVideo] = useState(null);
@@ -26,7 +27,7 @@ const Blogpost = () => {
     formData.append('video', video);
     
     try {
-      const response = await AxiosInstance.post('adminn/addblog/', formData, {
+      const response = await AxiosInstance.post('doctor/docaddblog/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -41,9 +42,12 @@ const Blogpost = () => {
 
   return (
     <>
-      <div className="flex">
-        <AdminSideBar />
-        <div className="flex flex-col justify-center items-center min-h-[200px] min-w-[300px] bg-blue-200 shadow rounded-lg p-8">
+       <DocNavbar/>
+    <div className=' flex '>
+        
+        <ProfileSideBar/>
+        
+        <div className='flex justify-center mx-auto my-24'>
           <Toaster />
           <div>
             <h2 className="text-lg font-semibold mb-4">Add New Post</h2>
@@ -84,8 +88,8 @@ const Blogpost = () => {
               </button>
             </form>
           </div>
-        <Link to="/admin/adminviewblog">
-          <button className='bg-green-600 min-w-[10px] min-h-[10px] rounded-lg'>View All Posts</button>
+        <Link to="/doctor/docblogview">
+          <button className='bg-green-400 w-36 h-12 rounded-lg'>View All Posts</button>
         </Link>
         </div>
       </div>
@@ -94,4 +98,4 @@ const Blogpost = () => {
   );
 };
 
-export default Blogpost;
+export default DocBlog;

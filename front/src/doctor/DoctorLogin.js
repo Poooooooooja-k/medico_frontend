@@ -59,10 +59,10 @@ const DoctorLogin = () => {
 
         if (response && response.data) {
           console.log(response.data);
-          console.log(response.data.jwt);
-          localStorage.setItem('token', response.data.jwt);
+          localStorage.setItem('token', response.data.access_token);
+          localStorage.setItem('refreshToken', response.data.refresh);
           dispatch(userLogin());
-          navigate('doctor/docDashboard');
+          navigate('/doctor/docDashboard');
         }
       } catch (error) {
         console.error('Error:', error);
