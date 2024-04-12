@@ -6,39 +6,46 @@ import DocNavbar from './DocNavbar';
 import ProfileSideBar from './ProfileSideBar';
 
 const DocBlog= () => {
-  const [title, setTitle] = useState('');
-  const [article, setArticle] = useState(null);
-  const [video, setVideo] = useState(null);
-
-  const handleArticle = (e) => {
-    setArticle(e.target.files[0]);
-  };
-
-  const handleVideo = (e) => {
-    setVideo(e.target.files[0]);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('article', article);
-    formData.append('video', video);
-    
-    try {
-      const response = await AxiosInstance.post('doctor/docaddblog/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      console.log('response.data', response.data);
-      toast('Blog added successfully!!');
-    } catch (error) {
-      console.log('error while uploading video', error);
-      toast('Error while Uploading Blog');
-    }
-  };
+    const [title, setTitle] = useState('');
+    const [blogContent,setblogContent]=useState('')
+    const [article, setArticle] = useState(null);
+    const [video, setVideo] = useState(null);
+    const [isVerified, setIsVerified] = useState(false);
+    const[created,setCreated]=useState(null)
+  
+    const handleArticle = (e) => {
+      setArticle(e.target.files[0]);
+    };
+  
+    const handleVideo = (e) => {
+      setVideo(e.target.files[0]);
+    };
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('blog_content',blogContent)
+      formData.append('article', article);
+      formData.append('video', video);
+      formData.append('created_by',created)
+      formData.append('is_verified', isVerified.toString());
+      
+      try {
+        const response = await AxiosInstance.post('doctor/docaddblog/', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        console.log('response.data', response.data);
+        toast('Blog added successfully!!');
+      } catch (error) {
+        console.log('error while uploading video', error);
+        toast('Error while Uploading Blog');
+      }
+    };
+  
 
   return (
     <>
@@ -70,6 +77,15 @@ const DocBlog= () => {
                   className="border border-gray-400 px-3 py-2 rounded-md w-full"
                 />
               </div>
+              <div className="mb-4">
+                <label className="block mb-2">Content:</label>
+                <input
+                  type="text"
+                  value={blogContent}
+                  onChange={(e) => setblogContent(e.target.value)}
+                  className="border border-gray-400 px-3 py-2 rounded-md w-full"
+                />
+              </div>
 
               <div className="mb-4">
                 <label className="block mb-2">Video:</label>
@@ -79,21 +95,28 @@ const DocBlog= () => {
                   className="border border-gray-400 px-3 py-2 rounded-md w-full"
                 />
               </div>
-
+              <div className="mb-4">
+                <label className="block mb-2">Created by:</label>
+                <input
+                  type="text"
+                  value={created}
+                  onChange={(e) => setCreated(e.target.value)}
+                  className="border border-gray-400 px-3 py-2 rounded-md w-full"
+                />
+              </div>
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-16 hover:bg-blue-600"
               >
                 Submit
               </button>
             </form>
           </div>
+          </div>
         <Link to="/doctor/docblogview">
           <button className='bg-green-400 w-36 h-12 rounded-lg'>View All Posts</button>
         </Link>
         </div>
-      </div>
-      
     </>
   );
 };

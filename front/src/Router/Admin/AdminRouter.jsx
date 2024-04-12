@@ -9,6 +9,9 @@ import  AdminViewBlog from '../../admin/AdminViewBlog'
 import Blogpost from '../../admin/Blogpost';
 import AdminLoginpage from '../../admin/AdminLoginpage';
 import Appointments from '../../admin/Appointments';
+import DoctorBlog from '../../admin/DoctorBlog';
+
+
 
 const AdminRouter = () => {
   return (
@@ -21,6 +24,7 @@ const AdminRouter = () => {
         <Route path='/adminviewblog' element={<AdminProtectedRouter element={AdminViewBlog}/>}></Route>
         <Route path='/addblogpost' element={<AdminProtectedRouter element={Blogpost}/>}></Route>
         <Route path='/adminappointments' element={<AdminProtectedRouter element={Appointments}/>}></Route>
+        <Route path='/admindoctorblog' element={<AdminProtectedRouter element={DoctorBlog}/>}></Route>
         <Route path='/adminlogin' element={<AdminLoginpage/>}/>
       </Routes>
     </div>

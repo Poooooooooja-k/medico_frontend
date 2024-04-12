@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { AxiosInstance } from '../components/AxiosInstance'
+import toast,{Toaster} from 'react-hot-toast';
 import AdminSideBar from './AdminSideBar'
 import { BaseUrl } from '../components/BaseUrl';
 
-const AdminViewBlog = () => {
+const DoctorBlog = () => {
  const [Blogs,setBlog]=useState([])
  const [currentPage,setCurrentPage]=useState(1)
  const [itemsPerPage]=useState(1)
 
  useEffect(()=>{
-    AxiosInstance.get('adminn/adminviewpost/')
+    AxiosInstance.get('adminn/admindoctorblogview/')
     .then(response=>{
         setBlog(response.data)
     }).catch(error=>{
@@ -26,11 +27,25 @@ const AdminViewBlog = () => {
   setCurrentPage(pageNumber);
  };
 
+
+ const approveBlog = async(blogId) => {
+    try {
+        await AxiosInstance.post('adminn/adminapprovedoctorblog/', { blog_id: blogId })
+        .then(response => {
+            console.log('approved successfully')
+            toast.success('Blog approved successfully')
+        })
+    } catch (error) {
+        console.error("Error approving blog", error)
+    }
+}
+
   return (
     <>
 <div className="flex">
       <AdminSideBar />
       <div className="flex flex-col overflow-x-auto">
+        <Toaster/>
         <h1 className="text-center font-bold text-red-500 mt-4">Blogs</h1>
         <div className="sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -69,15 +84,8 @@ const AdminViewBlog = () => {
                              </td>
                              <td className="whitespace-normal px-12 py-12">{blog.created_by}</td>
                              <td className="whitespace-nowrap px-12 py-12">
-                               {/* <button onClick={() => handleDelete(blog.id)} className="mr-2 text-red-500">
-                                 <FaTrash />
-                               </button> */}
-                               {/* <button onClick={() => handleRestore(blog.id)} className="mr-2 text-blue-500">
-                                 <FaUndo />
-                               </button> */}
-                               {/* <button className="text-green-500">
-                                 <FaEdit />
-                               </button> */}
+                              <button className='bg-green-500 text-white w-20 h-7 rounded-md mr-3' onClick={()=>approveBlog(blog.id)}>Approve</button>
+                              {/* <button className='bg-red-500 text-white w-20 h-7 rounded-md'>Reject</button> */}
                              </td>
                             
                            </tr>
@@ -103,4 +111,4 @@ const AdminViewBlog = () => {
   )
 }
 
-export default AdminViewBlog
+export default DoctorBlog

@@ -29,6 +29,7 @@ const AdminSideBar = () => {
             <li><Link to="/admin/adminspecializations" className="block py-2 px-4">Specializations</Link></li>
             <li><Link to="/admin/appointments" className="block py-2 px-4">Appointments</Link></li>
             <li><Link to="/admin/addblogpost" className="block py-2 px-4">Blog</Link></li>
+            <li><Link to="/admin/admindoctorblog" className="block py-2 px-4">Doctor Blog</Link></li>
             <li><Link to="/admin/feedback" className="block py-2 px-4">Feedback</Link></li>
             <li><Link to="/admin/wallet" className="block py-2 px-4">Wallet</Link></li>
             <li><button className='h-45 w-45 rounded-lg bg-red-700 ml-5 mt-3' onClick={handleLogout}>logout</button></li>

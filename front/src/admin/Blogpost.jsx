@@ -6,8 +6,10 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const Blogpost = () => {
   const [title, setTitle] = useState('');
+  const [blogContent,setblogContent]=useState('')
   const [article, setArticle] = useState(null);
   const [video, setVideo] = useState(null);
+  const[created,setCreated]=useState(null)
 
   const handleArticle = (e) => {
     setArticle(e.target.files[0]);
@@ -22,8 +24,10 @@ const Blogpost = () => {
 
     const formData = new FormData();
     formData.append('title', title);
+    formData.append('blog_content',blogContent)
     formData.append('article', article);
     formData.append('video', video);
+    formData.append('created_by',created)
     
     try {
       const response = await AxiosInstance.post('adminn/addblog/', formData, {
@@ -39,11 +43,18 @@ const Blogpost = () => {
     }
   };
 
+ 
   return (
     <>
+    <div className='grid grid-cols-12'>
+      <div className='grid col-span-6 '>
+      <AdminSideBar />
+      
+      </div>
       <div className="flex">
-        <AdminSideBar />
-        <div className="flex flex-col justify-center items-center min-h-[200px] min-w-[300px] bg-blue-200 shadow rounded-lg p-8">
+     
+        <div className="flex flex-col justify-center items-center my-48 max-h-96 min-w-96 bg-blue-200 shadow rounded-lg p-8  col-span-6">
+        
           <Toaster />
           <div>
             <h2 className="text-lg font-semibold mb-4">Add New Post</h2>
@@ -66,6 +77,15 @@ const Blogpost = () => {
                   className="border border-gray-400 px-3 py-2 rounded-md w-full"
                 />
               </div>
+              <div className="mb-4">
+                <label className="block mb-2">Content:</label>
+                <input
+                  type="text"
+                  value={blogContent}
+                  onChange={(e) => setblogContent(e.target.value)}
+                  className="border border-gray-400 px-3 py-2 rounded-md w-full"
+                />
+              </div>
 
               <div className="mb-4">
                 <label className="block mb-2">Video:</label>
@@ -75,21 +95,30 @@ const Blogpost = () => {
                   className="border border-gray-400 px-3 py-2 rounded-md w-full"
                 />
               </div>
-
+              <div className="mb-4">
+                <label className="block mb-2">Created by:</label>
+                <input
+                  type="text"
+                  value={created}
+                  onChange={(e) => setCreated(e.target.value)}
+                  className="border border-gray-400 px-3 py-2 rounded-md w-full"
+                />
+              </div>
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-16 hover:bg-blue-600"
               >
                 Submit
               </button>
             </form>
           </div>
-        <Link to="/admin/adminviewblog">
-          <button className='bg-green-600 min-w-[10px] min-h-[10px] rounded-lg'>View All Posts</button>
-        </Link>
         </div>
+        <Link to="/admin/adminviewblog">
+          <button className='bg-green-500 hover:bg-green-800 w-28 h-10 rounded-lg mt-36 mr-24 '>View All Posts</button>
+        </Link>
       </div>
-      
+      </div>
+     
     </>
   );
 };

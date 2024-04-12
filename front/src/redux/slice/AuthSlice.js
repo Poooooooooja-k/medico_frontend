@@ -18,7 +18,8 @@ const AuthSlice=createSlice({
         },
         userLogout:(state)=>{
             state.isLogin=false
-            localStorage.removeItem('token');
+            localStorage.removeItem('token')
+            localStorage.removeItem('refreshtoken');
             console.log("logged out successfully")
         }
     }

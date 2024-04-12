@@ -25,6 +25,7 @@ const DocOtpVerification = () => {
          if (response.status === 200) {
          
           successNotification('OTP verification successful');
+          toast.success('otp verification successfull!!')
            navigate('/');
          } else {
            setError('Invalid OTP');

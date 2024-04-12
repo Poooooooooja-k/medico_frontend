@@ -4,6 +4,7 @@ import { AxiosInstance } from "../components/AxiosInstance";
 import { useNavigate } from 'react-router-dom';
 import medico_logo from '../resources/medico_logo.png';
 import { Link } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const DoctorSignup = () => {
@@ -79,10 +80,11 @@ const DoctorSignup = () => {
          },
        });
        setRegistrationStatus('success');
-       alert('signup successful');
+       toast('You have successfully signed up!!!,confirm otp')
        navigate('/doctor/docotp-verification/', { state: { email: email } });
     } catch (error) {
        console.error("Error submitting signup:", error.response ? error.response.data : error);
+       toast.error('Error signing up!! Try again to Signup')
        console.log(error);
        setError(error)
        setRegistrationStatus('error');
@@ -98,25 +100,12 @@ const DoctorSignup = () => {
     setRegistrationStatus('');
   }
 
-//  useEffect(() => {
-//     const fetchSpecializations = async () => {
-//       try {
-//         const response = await AxiosInstance.get('adminn/specialisations/');
-//         setSpecialisation(response.data);
-//       } catch (error) {
-//         console.error("Error fetching specializations:", error);
-//       }
-//     };
-//     fetchSpecializations();
-//  }, []);
-
-
-
 
   return (
     <>
   <section className="h-full bg-neutral-200 light:bg-neutral-700">
   <div className="container h-full p-10">
+    <Toaster/>
     <div className="flex h-full items-center justify-center">
       <div className="w-full lg:w-10/12">
         <div className="block rounded-lg bg-white shadow-lg light:bg-neutral-800">
