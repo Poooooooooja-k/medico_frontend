@@ -57,7 +57,9 @@ const PatientLogin = () => {
           localStorage.setItem('token', response.data.access_token);
           localStorage.setItem('refreshToken', response.data.refresh);
           dispatch(userLogin());
-          navigate('/');
+          localStorage.setItem('role','patient')
+        
+          navigate('/patient/homepage');
         }
       } catch (error) {
         console.error('Error:', error);

@@ -10,6 +10,8 @@ import DocBlog from '../../doctor/DocBlog'
 import DocViewPost from '../../doctor/DocViewBlog'
 import SlotScheduling from '../../doctor/SlotScheduling'
 import Blog from '../../doctor/Blog'
+import DocAbout from '../../doctor/DocAbout'
+
 
 const DoctorRoutes = () => {
   return (
@@ -18,6 +20,7 @@ const DoctorRoutes = () => {
       <Route path='/doctorlogin' element={<DoctorLogin/>}/>
        <Route path='/docotp-verification' element={<DocOtpVerification/>}/>
        <Route path='/doctorsignup' element={<DoctorSignup/>}/>
+       <Route path='/docabout' element={<DocAbout/>}/>
        <Route path='/docDashboard' element={<DoctorProtectedRoute element={DocDashboard}/>}></Route>
        <Route path='/docprofile'  element={<DoctorProtectedRoute element={DocProfile}/>}></Route>
        <Route path='/slotschedule' element={<DoctorProtectedRoute element={SlotScheduling}/>} ></Route>

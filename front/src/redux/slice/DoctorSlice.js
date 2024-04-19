@@ -1,30 +1,31 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState={
-    isLogin:false
+    docisLogin:false
 }
 
 if (localStorage.getItem('token')){
-    initialState.isLogin=true
+    initialState.docisLogin=true
 }
 
-const AuthSlice=createSlice({
-    name:'auth',
+const DoctorSlice=createSlice({
+    name:'doctor_auth',
     initialState,
     reducers:{
-        userLogin:(state)=>{
-            state.isLogin=true
+        doctorLogin:(state)=>{
+            state.docisLogin=true
             console.log('login success!!')
         },
-        userLogout:(state)=>{
-            state.isLogin=false
+        doctorLogout:(state)=>{
+            state.docisLogin=false
             localStorage.removeItem('role')
             localStorage.removeItem('token')
             localStorage.removeItem('refreshtoken');
             console.log("logged out successfully")
         }
     }
+    
 })
-export const {userLogin,userLogout}=AuthSlice.actions
+export const {doctorLogin,doctorLogout}=DoctorSlice.actions
 
-export default AuthSlice.reducer
+export default DoctorSlice.reducer

@@ -9,7 +9,7 @@ if (localStorage.getItem('token')){
 }
 
 const AdminSlice=createSlice({
-    name:'auth',
+    name:'admin_auth',
     initialState,
     reducers:{
         AdminLogin:(state)=>{

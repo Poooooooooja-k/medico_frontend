@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import HomeNavbar from '../Home/HomeNavbar';
+import HomeNavbar from './HomeNavbar';
 import { AxiosInstance } from '../components/AxiosInstance';
 import PatientSideBar from './PatientSideBar';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
 
     const [profileData, setProfileData] = useState(null);
     const [error, setError] = useState(null);
+    const isLogin=useSelector(state=>state.auth.isLogin)
+    console.log(isLogin,"-----------login--------")
+    const navigate=useNavigate()
 
     useEffect(() => {
+        if (!isLogin){
+            navigate('/patient/patientlogin')
+            return 
+        }
         const fetchProfileData = async () => {
             try {
                 const response = await AxiosInstance.get('patient/userprofile/');

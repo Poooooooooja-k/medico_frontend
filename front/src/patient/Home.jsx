@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import HomeNavbar from './HomeNavbar';
+import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
-function HomePage(){
 
+
+function Home(){
   return (
     <>
-   
     <div className='relative'>
-    <HomeNavbar />
+    <Navbar/>
   <img className='object-cover w-full h-auto col-span-1' src='https://st4.depositphotos.com/9999814/22690/i/450/depositphotos_226904298-stock-photo-male-doctor-using-mobile-phone.jpg' alt='banner1' />
   {/* 1st banner */}
   <div className="hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-hidden sm:flex flex-col justify-center items-center">
@@ -103,16 +103,9 @@ function HomePage(){
             <h1 className='font-medium text-xl text-black mx-10 mb-2 p-5'>Start session</h1>
           </div>
       </div>
-      {/* end of how it works */}
-
-   
-      
-     
-   
-      
-      
+      {/* end of how it works */} 
     </>
   );
 }
 
-export default HomePage;
+export default Home;

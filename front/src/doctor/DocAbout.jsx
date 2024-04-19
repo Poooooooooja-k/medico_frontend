@@ -1,7 +1,9 @@
 import React from 'react';
 import { FaVideo, FaComments, FaCalendarAlt, FaBrain } from 'react-icons/fa';
-import HomeNavbar from './HomeNavbar';
-const About= () => {
+import HomeNavbar from '../patient/HomeNavbar';
+
+
+const DocAbout= () => {
     const backgroundImageUrl = 'https://lh3.googleusercontent.com/proxy/FXTPqp1BfokDTthbVUjHUwJQ4jq56wKTDsq972ohfstxXIaFu1tqPgooN_WUt7Zyv6kicCvQQ4GIpWN3XNWV9CGa37Jx5qgQXJ6IPH5w4y4gIO6qkXT8nh4U6BQ-';
   return (
     
@@ -73,4 +75,4 @@ const ServiceCard = ({ title, description, icon }) => {
     );
   };
 
-export default About;
+export default DocAbout;

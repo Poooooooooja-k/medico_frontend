@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { userLogout } from '../redux/slice/AuthSlice';
+import { doctorLogout } from '../redux/slice/DoctorSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ const ProfileSideBar = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-        dispatch(userLogout());
+        dispatch(doctorLogout());
         navigate('/');
   };
 
@@ -27,7 +27,7 @@ const ProfileSideBar = () => {
             <li><Link to="/doctor/docblog" className="block py-2 px-4">Blog</Link></li>
             <li><Link to="" className="block py-2 px-4">Feedback</Link></li>
             <li><Link to="" className="block py-2 px-4">Wallet</Link></li>
-            <li><button className='h-45 w-45 rounded-lg bg-red-700 ml-5 mt-3' onClick={handleLogout}>logout</button></li>
+            <li><button className='h-45 w-45 rounded-lg bg-red-700 ml-5 mt-3 p-2' onClick={handleLogout}>logout</button></li>
           </ul>
         </div>
       </div>

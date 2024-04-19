@@ -12,10 +12,9 @@ const DocNavbar = () => {
       </div>
       <div className="hidden items-center justify-around col-span-8 md:flex">
         <Link to="/doctor/docDashboard" className="text-black">Home</Link>
-        <Link to="/about" className="text-black">About</Link>
-        <Link to="patient/doctorlist" className="text-black">Doctors</Link>
+        <Link to="/doctor/docabout" className="text-black">About</Link>
         <Link to="/doctor/blogg" className="text-black">Blog</Link>
-        <Link to="/booking" className="text-black">Chats</Link>
+        <Link to="/doctor/booking" className="text-black">Chats</Link>
         <Link to="/doctor/docprofile" className="text-black">Profile</Link>
       </div>
       <div className="md:hidden flex justify-end items-center col-span-8">
@@ -31,7 +30,7 @@ const DocNavbar = () => {
             <Link to="/homepage" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
               Home
             </Link>
-            <Link to="/about" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+            <Link to="doctor/docabout" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
               About
             </Link>
             <Link to="" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-gray-900" role="menuitem">

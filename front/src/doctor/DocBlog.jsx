@@ -14,12 +14,20 @@ const DocBlog= () => {
     const[created,setCreated]=useState(null)
   
     const handleArticle = (e) => {
-      setArticle(e.target.files[0]);
-    };
-  
-    const handleVideo = (e) => {
-      setVideo(e.target.files[0]);
-    };
+      if (e.target.files[0].type.startsWith('image/')) {
+          setArticle(e.target.files[0]);
+      } else {
+          toast.error('Please select a valid image file for the article.');
+      }
+  };
+
+  const handleVideo = (e) => {
+      if (e.target.files[0].type.startsWith('video/')) {
+          setVideo(e.target.files[0]);
+      } else {
+          toast.error('Please select a valid video file.');
+      }
+  };
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -54,12 +62,12 @@ const DocBlog= () => {
         
         <ProfileSideBar/>
         
-        <div className='flex justify-center mx-auto my-24'>
+        <div className='flex justify-center mx-auto '>
           <Toaster />
           <div>
             <h2 className="text-lg font-semibold mb-4">Add New Post</h2>
-            <form onSubmit={handleSubmit} className="w-full">
-              <div className="mb-4">
+            <form onSubmit={handleSubmit} className="w-">
+              <div className="mb-2">
                 <label className="block mb-2">Title:</label>
                 <input
                   type="text"
@@ -69,15 +77,16 @@ const DocBlog= () => {
                 />
               </div>
 
-              <div className="mb-4">
+              <div className="mb-2">
                 <label className="block mb-2">Article:</label>
                 <input
                   type="file"
+                  accept="image/*"
                   onChange={handleArticle}
                   className="border border-gray-400 px-3 py-2 rounded-md w-full"
                 />
               </div>
-              <div className="mb-4">
+              <div className="mb-2">
                 <label className="block mb-2">Content:</label>
                 <input
                   type="text"
@@ -87,15 +96,16 @@ const DocBlog= () => {
                 />
               </div>
 
-              <div className="mb-4">
+              <div className="mb-2">
                 <label className="block mb-2">Video:</label>
                 <input
                   type="file"
+                  accept="video/*" 
                   onChange={handleVideo}
                   className="border border-gray-400 px-3 py-2 rounded-md w-full"
                 />
               </div>
-              <div className="mb-4">
+              <div className="mb-2">
                 <label className="block mb-2">Created by:</label>
                 <input
                   type="text"
@@ -114,7 +124,7 @@ const DocBlog= () => {
           </div>
           </div>
         <Link to="/doctor/docblogview">
-          <button className='bg-green-400 w-36 h-12 rounded-lg'>View All Posts</button>
+          <button className='bg-green-400 w-36 h-12 rounded-lg mr-96'>View All Posts</button>
         </Link>
         </div>
     </>

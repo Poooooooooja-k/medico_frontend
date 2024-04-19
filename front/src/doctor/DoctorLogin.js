@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AxiosInstance } from '../components/AxiosInstance';
 import { Link, useNavigate } from 'react-router-dom';
-import { userLogin } from '../redux/slice/AuthSlice';
+import { doctorLogin } from '../redux/slice/DoctorSlice';
 import { useDispatch } from 'react-redux';
 
 const DoctorLogin = () => {
@@ -61,7 +61,8 @@ const DoctorLogin = () => {
           console.log(response.data);
           localStorage.setItem('token', response.data.access_token);
           localStorage.setItem('refreshToken', response.data.refresh);
-          dispatch(userLogin());
+          dispatch(doctorLogin());
+          localStorage.setItem('role','doctor')
           navigate('/doctor/docDashboard');
         }
       } catch (error) {
