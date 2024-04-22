@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BaseUrl } from '../components/BaseUrl';
 import DocNavbar from '../doctor/DocNavbar';
 import { AxiosInstance } from '../components/AxiosInstance';
 import toast, { Toaster } from 'react-hot-toast';
+import querystring from 'query-string'
 
 const DocSlot = () => {
     const location = useLocation();
@@ -15,6 +16,8 @@ const DocSlot = () => {
     const [doctorDetails, setDoctorDetails] = useState({});
     const [selectedSlot, setSelectedSlot] = useState(null); 
     const [slotid,setSlotId]=useState(null)
+    const navigate=useNavigate()
+    console.log(doctorDetails,"---------doc---------")
 
     useEffect(() => {
         const fetchDoctor = async () => {
@@ -61,7 +64,7 @@ const DocSlot = () => {
 };
 
 
-    const handleBookingConfirmation = async () => {
+    const handleBookingConfirmation = async (doctorId) => {
 
         // Booking details to send to the backend
         if (selectedSlot && selectedSlot.start_time) {
@@ -75,9 +78,15 @@ const DocSlot = () => {
     
             try {
                 const response = await AxiosInstance.post('patient/bookslot/', bookingDetails);
+                const data={
+                    doctor_id:doctor_id,
+                    date:selectedDate,
+                    amount:doctorDetails.consultation_fee,  
+                }
+                const queryStringData=querystring.stringify(data)
                 console.log('Booking confirmation response:', response.data);
-                toast.success('slot selected successfully!!!')
-    
+                toast.success('slot selected successfully!')
+                navigate(`/patient/payment/?${queryStringData}`)
             } catch (error) {
                 console.error('Error confirming booking:', error);
             }
@@ -118,10 +127,18 @@ const DocSlot = () => {
                             </div>
                         ))}
                     </div>
+                    {/* <Link
+                    to={{
+                        pathname: '/patient/payment/',
+                        state: {
+                            consultationFee: doctorDetails.consultation_fee,
+                            doctorId: doctor_id
+                        }
+                    }}
+                > */}
                     <button className='w-48 h-10 rounded-md bg-green-600 hover:bg-green-800 mt-8' onClick={handleBookingConfirmation}>
                         Confirm Booking
                     </button>
-
                 </div>
             </div>
         </>

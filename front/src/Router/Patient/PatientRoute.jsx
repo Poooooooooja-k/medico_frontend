@@ -7,10 +7,9 @@ import Profile from '../../patient/Profile'
 import Doctorlist from '../../patient/Doctorlist'
 import HomePage from '../../patient/HomePage'
 import Blog from '../../patient/Blog'
-import About from '../../patient/About'
+import Payment from '../../patient/Payment'
 import PatientProtectedRoute from './PatientProtectedRoute'
 import DocSlot from '../../patient/DocSlot'
-
 
 const PatientRoute = () => {
   return (
@@ -23,11 +22,10 @@ const PatientRoute = () => {
       <Route path='/doctorlist'element={<PatientProtectedRoute element={Doctorlist}/>} ></Route>
       <Route path='/homepage' element={<PatientProtectedRoute element={HomePage}/>} ></Route>
       <Route path='/blog' element={<PatientProtectedRoute element={Blog}/>} ></Route>
-      <Route path='/blog' element={<PatientProtectedRoute element={Blog}/>} ></Route>
+      <Route path='/payment' element={<PatientProtectedRoute element={Payment}/>} ></Route>
       <Route path='/docslot/' element={<DocSlot/>}/>
     </Routes>
     </div>
   )
 }
-
 export default PatientRoute

@@ -3,9 +3,9 @@ import { AxiosInstance } from '../components/AxiosInstance';
 import HomeNavbar from './HomeNavbar';
 import { useNavigate } from 'react-router-dom';
 import querystring from 'query-string'
-const DoctorCard = ({ doctor ,handleBookAppointment}) => {
-  
 
+
+const DoctorCard = ({ doctor ,handleBookAppointment}) => {
     const bookAppointment = (doctorId) => {
         console.log(doctorId, "---docid---------");
         handleBookAppointment(doctorId);
@@ -39,13 +39,11 @@ const DoctorList = () => {
     const handleBookAppointment = (doctorId) => {
         const data={
             doctor_id:doctorId
-          
         }
         const queryStringData=querystring.stringify(data)
         navigate(`/patient/docslot?${queryStringData}`); 
     };
     
-
     useEffect(() => {
         const fetchDoctors = async () => {
             try {
@@ -55,7 +53,6 @@ const DoctorList = () => {
                 console.error('Error fetching doctors:', error);
             }
         };
-
         fetchDoctors();
     }, []);
 
@@ -68,7 +65,6 @@ const DoctorList = () => {
                 Finding Your Ideal Healthcare Companion: <br/> The Best Doctors for You
             </h1>
         </div>
-
         <div className="flex flex-wrap justify-center">
             {doctors.map(doctor => (
                 <DoctorCard key={doctor.id} doctor={doctor} handleBookAppointment={handleBookAppointment} />
@@ -77,5 +73,4 @@ const DoctorList = () => {
       </>
     );
 }
-
 export default DoctorList;
