@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BaseUrl } from '../components/BaseUrl';
-import DocNavbar from '../doctor/DocNavbar';
+import HomeNavbar from './HomeNavbar';
 import { AxiosInstance } from '../components/AxiosInstance';
 import toast, { Toaster } from 'react-hot-toast';
 import querystring from 'query-string'
@@ -80,6 +80,7 @@ const DocSlot = () => {
                 const response = await AxiosInstance.post('patient/bookslot/', bookingDetails);
                 const data={
                     doctor_id:doctor_id,
+                    // doctor_name: `${doctorDetails.first_name} ${doctorDetails.last_name}`,
                     date:selectedDate,
                     amount:doctorDetails.consultation_fee,  
                 }
@@ -96,7 +97,7 @@ const DocSlot = () => {
     };
     return (
         <>
-            <DocNavbar />
+            <HomeNavbar />
             <div className='grid grid-cols-12'>
                 <Toaster/>
                 <div className='flex justify-start ml-52 col-span-5'>
